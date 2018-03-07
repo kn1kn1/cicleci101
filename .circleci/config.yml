@@ -2,7 +2,6 @@
 # later in the file to save some typing. See http://yaml.org/type/merge.html for details.
 
 defaults: &defaults
-  working_directory: /tmp
   docker:
     - image: buildpack-deps:jessie
 
@@ -11,8 +10,8 @@ jobs:
   flow:
     <<: *defaults
     steps:
-      - run: mkdir -p workspace
-      - run: echo "Hello, world!" > workspace/echo-output
+      - run: mkdir -p /tmp/workspace
+      - run: echo "Hello, world!" > /tmp/workspace/echo-output
 
       # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
