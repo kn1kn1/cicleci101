@@ -41,10 +41,17 @@ jobs:
 
 workflows:
   version: 2
-
-  btd:
+  build-and-deploy:
     jobs:
-      - build
+      - build:
+          filters:
+              branches:
+                only:
+                  - develop
       - deploy:
+          filters:
+              branches:
+                only:
+                  - develop
           requires:
             - build
