@@ -44,6 +44,6 @@ workflows:
   btd:
     jobs:
       - build
-      - deplyoy:
+      - deploy:
           requires:
             - build
