@@ -1,19 +1,21 @@
 # The following stanza defines a map named defaults with a variable that may be inserted using the YAML merge (<<: *) key
 # later in the file to save some typing. See http://yaml.org/type/merge.html for details.
-
 defaults: &defaults
   docker:
     - image: buildpack-deps:jessie
 
 version: 2
 jobs:
-  flow:
+  build:
     <<: *defaults
     steps:
       - run: mkdir -p /tmp/workspace
       - run: echo "Hello, world!" > /tmp/workspace/echo-output
 
-      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      - store_artifacts:
+          path: /tmp/workspace/echo-output
+
+      # Persist the specified paths (/tmp/workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
           # taken to be the root directory of the workspace.
@@ -22,7 +24,7 @@ jobs:
           paths:
             - echo-output
 
-  downstream:
+  deploy:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -41,7 +43,7 @@ workflows:
 
   btd:
     jobs:
-      - flow
-      - downstream:
+      - build
+      - deplyoy:
           requires:
-            - flow
+            - build
