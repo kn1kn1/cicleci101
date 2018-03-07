@@ -14,6 +14,7 @@ jobs:
 
       - store_artifacts:
           path: /tmp/workspace/echo-output
+          destination: echo-output
 
       # Persist the specified paths (/tmp/workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
