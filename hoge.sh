@@ -10,5 +10,7 @@ expect {
 }
 exit 1
 ')
-
-exit $?
+RET=$?
+echo "Expect's return value : $RET";
+echo "Expect Output : $OUTPUT"
+exit $RET
