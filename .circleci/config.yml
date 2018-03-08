@@ -28,6 +28,7 @@ jobs:
   deploy-develop:
     <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /tmp/workspace-dev
@@ -38,6 +39,10 @@ jobs:
           else
             echo "Nope!"; exit 1
           fi
+      - run: |
+          chmod +x hoge.sh
+          ./hoge.sh
+
 
   build-master:
     <<: *defaults
