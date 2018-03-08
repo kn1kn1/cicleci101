@@ -11,6 +11,4 @@ expect {
 exit 1
 ')
 
-echo "Expect's return value : $?";
-echo "Expect Output : $OUTPUT"
 exit $?
