@@ -32,7 +32,12 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /tmp/workspace-dev
-
+      - run:
+          name: Install expect
+          command: |
+            apt-get update
+            apt-get install -y expect
+            rm -rf /var/lib/apt/lists/*
       - run: |
           if [[ `cat /tmp/workspace-dev/echo-output-dev` == "Hello, world!" ]]; then
             echo "Dev worked!";
