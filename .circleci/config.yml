@@ -84,28 +84,16 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy-develop:
+  commit:
     jobs:
-      - build-develop:
+      - build-master
+  nightly:
+    triggers:
+      - schedule:
+          cron: "45 7 * * *"
           filters:
-              branches:
-                only:
-                  - develop
-      - deploy-develop:
-          filters:
-              branches:
-                only:
-                  - develop
-          requires:
-            - build-develop
-  build-and-deploy-master:
+            branches:
+              only:
+                - master
     jobs:
-      - build-master:
-          nightly:
-            triggers:
-              - schedule:
-                  cron: "39 7 * * *"
-                  filters:
-                    branches:
-                      only:
-                        - master
+      - build-master
