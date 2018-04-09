@@ -99,13 +99,13 @@ workflows:
           requires:
             - build-develop
   build-and-deploy-master:
-    nightly:
-      triggers:
-        - schedule:
-            cron: "39 7 * * *"
-            filters:
-              branches:
-                only:
-                  - master
-      jobs:
-        - build-master
+    jobs:
+      - build-master:
+          nightly:
+            triggers:
+              - schedule:
+                  cron: "39 7 * * *"
+                  filters:
+                    branches:
+                      only:
+                        - master
