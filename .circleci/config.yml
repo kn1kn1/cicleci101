@@ -100,15 +100,12 @@ workflows:
             - build-develop
   build-and-deploy-master:
     jobs:
-      - build-master:
-          filters:
+      build-master
+    nightly:
+      triggers:
+        - schedule:
+            cron: "35 7 * * *"
+            filters:
               branches:
                 only:
                   - master
-      - deploy-master:
-          filters:
-              branches:
-                only:
-                  - master
-          requires:
-            - build-master
